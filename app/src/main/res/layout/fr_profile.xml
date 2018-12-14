@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="ProfileBinding">
+
+        <import
+            alias="V"
+            type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.elegion.test.behancer.ui.profile.ProfileViewModel" />
+
+    </data>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:onRefresh="@{vm.onRefreshListener}"
+        app:refreshState="@{vm.isLoading}">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:id="@+id/view_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:visibility="@{vm.isErrorVisible ? V.GONE : V.VISIBLE }">
+
+
+                <ImageView
+                    android:id="@+id/iv_profile"
+                    android:layout_width="128dp"
+                    android:layout_height="128dp"
+                    android:contentDescription="@string/content_description_details"
+                    android:visibility="@{vm.isErrorVisible ? V.GONE : V.VISIBLE}"
+                    app:imageUrl="@{vm.imageUrl}" />
+
+                <TextView
+                    android:id="@+id/tv_display_name_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/iv_profile"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toEndOf="@id/iv_profile"
+                    android:layout_toRightOf="@id/iv_profile"
+                    android:text="@{vm.name}"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    tools:text="text" />
+
+                <TextView
+                    android:id="@+id/tv_username_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_display_name_details"
+                    android:layout_alignStart="@id/tv_display_name_details"
+                    android:layout_alignLeft="@id/tv_display_name_details"
+                    tools:text="empty" />
+
+                <TextView
+                    android:id="@+id/tv_created_on_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_username_details"
+                    android:layout_alignStart="@id/tv_username_details"
+                    android:layout_alignLeft="@id/tv_username_details"
+                    android:text="@{vm.profileCreatedOn}"
+                    tools:text="12.12.2012" />
+
+                <TextView
+                    android:id="@+id/tv_location_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_created_on_details"
+                    android:layout_alignStart="@id/tv_created_on_details"
+                    android:layout_alignLeft="@id/tv_created_on_details"
+                    android:text="@{vm.location}"
+                    tools:text="Chelny" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="@{vm.isErrorVisible ? V.VISIBLE : V.GONE}">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_error" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/error"
+                    android:textColor="#a40616"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</layout>
